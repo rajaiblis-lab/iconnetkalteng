@@ -48,7 +48,8 @@ class M_Olt extends CI_Model
         count(pelanggan.no) as hc')
             ->from('fat') //urut berdasarkan id
             ->where('fat.status_pembangunan', 'Ready for sale')
-            ->where('fat.status_pembangunan', 'Ready for sale')
+            ->or_where('fat.status_pembangunan', 'FULL')
+            // ->where('fat.status_pembangunan', 'Ready for sale')
             ->join('pelanggan', 'fat.no=pelanggan.id_fat', 'left')
             ->where('pelanggan.status', 'SPA Closed')
             ->order_by('fat.olt', 'desc')
@@ -63,6 +64,7 @@ class M_Olt extends CI_Model
             ->from('fat') //urut berdasarkan id
             ->join('cluster', 'fat.cluster=cluster.no', 'left')
             ->where('fat.status_pembangunan', 'Ready for sale')
+            ->or_where('fat.status_pembangunan', 'FULL')
             ->order_by('cluster.nama_cluster', 'asc')
             ->group_by('cluster.nama_cluster')
             ->get(); //ditampilkan dalam bentuk array
@@ -74,11 +76,66 @@ class M_Olt extends CI_Model
         count(pelanggan.no) as hc')
             ->from('fat') //urut berdasarkan id
             ->where('fat.status_pembangunan', 'Ready for sale')
+            ->or_where('fat.status_pembangunan', 'FULL')
             ->join('cluster', 'fat.cluster=cluster.no', 'left')
             ->join('pelanggan', 'fat.no=pelanggan.id_fat', 'left')
             ->where('pelanggan.status', 'SPA Closed')
             ->order_by('cluster.nama_cluster', 'asc')
             ->group_by('cluster.nama_cluster')
+            ->get(); //ditampilkan dalam bentuk array
+        return $query;
+    }
+    public function table3()
+    {
+        $query = $this->db->select('fat.olt, cluster.no_io, SUM(fat.kapasitas_port_terpasang) as hp, count(fat.kapasitas_port_terpasang) as fat_aktif')
+            ->from('fat') //urut berdasarkan id
+            ->join('cluster', 'fat.cluster=cluster.no', 'left')
+            ->where('fat.status_pembangunan', 'Ready for sale')
+            ->or_where('fat.status_pembangunan', 'FULL')
+            ->order_by('fat.olt', 'asc')
+            ->order_by('cluster.no_io')
+            ->group_by('cluster.no_io')
+            ->group_by('fat.olt')
+            ->get(); //ditampilkan dalam bentuk array
+        return $query;
+    }
+    public function tur_olt()
+    {
+        $query = $this->db->select('fat.olt, count(pelanggan.no) as hc')
+            ->from('fat') //urut berdasarkan id
+            ->where('fat.status_pembangunan', 'Ready for sale')
+            ->or_where('fat.status_pembangunan', 'FULL')
+            ->join('pelanggan', 'fat.no=pelanggan.id_fat', 'left')
+            ->where('pelanggan.status', 'SPA Closed')
+            ->order_by('fat.olt', 'asc')
+            ->group_by('fat.olt')
+            ->get(); //ditampilkan dalam bentuk array
+        return $query;
+    }
+    public function table2()
+    {
+        $query = $this->db->select('cluster.no_io, SUM(fat.kapasitas_port_terpasang) as hp, count(fat.kapasitas_port_terpasang) as fat_aktif')
+            ->from('fat') //urut berdasarkan id
+            ->join('cluster', 'fat.cluster=cluster.no', 'left')
+            ->where('fat.status_pembangunan', 'Ready for sale')
+            ->or_where('fat.status_pembangunan', 'FULL')
+            ->order_by('cluster.no_io', 'asc')
+            ->group_by('cluster.no_io')
+            ->get(); //ditampilkan dalam bentuk array
+        return $query;
+    }
+    public function tur_wilayah()
+    {
+        $query = $this->db->select('cluster.no_io,
+        count(pelanggan.no) as hc')
+            ->from('fat') //urut berdasarkan id
+            ->where('fat.status_pembangunan', 'Ready for sale')
+            ->or_where('fat.status_pembangunan', 'FULL')
+            ->join('cluster', 'fat.cluster=cluster.no', 'left')
+            ->join('pelanggan', 'fat.no=pelanggan.id_fat', 'left')
+            ->where('pelanggan.status', 'SPA Closed')
+            ->order_by('cluster.no_io', 'asc')
+            ->group_by('cluster.no_io')
             ->get(); //ditampilkan dalam bentuk array
         return $query;
     }

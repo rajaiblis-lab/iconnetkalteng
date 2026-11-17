@@ -1,0 +1,115 @@
+# Version control
+.git/
+.gitignore
+.gitattributes
+.svn/
+.hg/
+
+# IDE and editor files
+.idea/
+.vscode/
+*.swp
+*.swo
+*.bak
+*.orig
+
+# Node.js
+node_modules/
+npm-debug.log
+yarn-debug.log
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.pytest_cache/
+.coverage
+
+# Go
+/vendor/
+*.test
+.go-cache/
+
+# Java
+*.class
+.target/
+.gradle/
+
+# Build outputs
+build/
+dist/
+out/
+
+# Test and debug
+test/
+tests/
+debug/
+*.log
+
+# Temporary and local files
+tmp/
+temp/
+*.tmp
+.local/
+local/
+
+# Environment and secrets
+.env*
+*.env
+*.pem
+*.key
+*.crt
+config.local.*
+*.local.yml
+
+# Documentation and markdown
+docs/
+*.md
+README*
+
+# Docker files
+Dockerfile*
+docker-compose*
+
+# Project-specific
+bower_components/
+application/cache/
+application/logs/
+
+# Miscellaneous
+*.DS_Store
+Thumbs.db
+
+# Ignore assets build/test/config files
+assets/**/.npmignore
+assets/**/.travis.yml
+assets/**/Gruntfile.js
+assets/**/Gemfile
+assets/**/Gemfile.lock
+assets/**/Makefile
+assets/**/build/
+assets/**/docs/
+assets/**/tests/
+assets/**/test/
+assets/**/spec/
+assets/**/tmp/
+assets/**/temp/
+assets/**/debug/
+assets/**/node_modules/
+assets/**/bower_components/
+assets/**/dist/
+assets/**/out/
+assets/**/.github/
+
+# Ignore PHP vendor (if present)
+application/third_party/**/vendor/
+
+# Ignore hidden files and folders
+.*
+
+# Exclude lock files and build tools explicitly (do NOT ignore)
+!*.lock
+!.mvnw
+!.gradlew
+!.mvn/
+!.gradle/

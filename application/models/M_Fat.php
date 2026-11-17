@@ -11,7 +11,7 @@ class M_Fat extends CI_Model
         fat.id_fdt as no_fdt, fat_brand.nama_brand, mitra_pembangunan.nama
         as nama_instalatir, cluster.nama_cluster, fdt.id_fdt, fat.jenis, fat.olt,
         fat.kapasitas_port_terpasang - count(pelanggan.no) AS port_idle,
-        count(pelanggan.no) AS jumlah_pelanggan, olt.hostname, pop.id_pop,
+        count(pelanggan.no) AS jumlah_pelanggan, olt.hostname, pop.id_pop, pop.nama_pop,
         ST_DistanceSphere(ST_MakePoint(fat.long,fat.lat),ST_MakePoint(fdt.long,fdt.lat)) as jarak, fat.timestamp, fat.penginput')
             ->from('fat') //urut berdasarkan id
             ->join('pelanggan', 'fat.no=pelanggan.id_fat', 'left')

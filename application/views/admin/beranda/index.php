@@ -100,7 +100,7 @@
                     <span class="info-box-text">HP</span>
                     <span class="info-box-number">
                         <?php foreach ($hp as $x) : ?>
-                        <?= $x['kapasitas_port_terpasang'] ?>
+                            <?= $x['kapasitas_port_terpasang'] ?>
                         <?php endforeach; ?></span>
                 </div>
                 <!-- /.info-box-content -->
@@ -138,44 +138,99 @@
         <div class="box-body">
             <div class="row">
                 <div class="col-sm-12">
-                    <table id="example" class="table table-bordered table-striped dataTable nowrap" cellspacing="0"
-                        role="grid" aria-describedby="example1_info" style="width:100%">
+                    <table id="example" class="table table-bordered table-striped dataTable nowrap" cellspacing="0" role="grid" aria-describedby="example1_info" style="width:100%">
                         <thead>
                             <tr role="row">
-                                <th class="sorting_asc" tabindex="0" aria-controls="example1" rowspan="1" colspan="1"
-                                    aria-sort="ascending"
-                                    aria-label="Rendering engine: activate to sort column descending"
-                                    style="width: 10px;">No.</th>
-                                <th class="sorting_asc" tabindex="0" aria-controls="example1" rowspan="1" colspan="1"
-                                    aria-sort="ascending"
-                                    aria-label="Rendering engine: activate to sort column descending"
-                                    style="width: 74.3594px;">Nama Cluster</th>
-                                <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1"
-                                    aria-label="Browser: activate to sort column ascending" style="width: 66.1719px;">HP
+                                <th class="sorting_asc" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Rendering engine: activate to sort column descending" style="width: 10px;">No.</th>
+                                <th class="sorting_asc" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Rendering engine: activate to sort column descending" style="width: 74.3594px;">Nama Cluster</th>
+                                <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending" style="width: 66.1719px;">HP
                                 </th>
-                                <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1"
-                                    aria-label="Platform(s): activate to sort column ascending"
-                                    style="width: 80.7812px;">HC
+                                <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending" style="width: 80.7812px;">HC
                                 </th>
-                                <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1"
-                                    aria-label="Engine version: activate to sort column ascending"
-                                    style="width: 55.1094px;">TUR
+                                <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Engine version: activate to sort column ascending" style="width: 55.1094px;">TUR
                                 </th>
                             </tr>
                         </thead>
                         <tbody>
-                            <?php if (is_array($xnxx) || is_object($xnxx)) : ?>
-                            <?php $no = 1;
-                                $tabel = [];
-                                foreach ($xnxx as $key => $w) : ?>
-                            <tr role="row" class="odd">
-                                <td class="sorting_1"><?= $no++ ?></td>
-                                <td><?= $w['nama_cluster'] ?></td>
-                                <td><?= $w['hp'] ?></td>
-                                <td><?= $hc[$key] ?></td>
-                                <td><?= number_format(($hc[$key]  / $w['hp']) * 100, 2); ?>%</td>
+                            <?php if (!empty($xnxx)) : ?>
+                                <?php foreach ($xnxx as $i => $w) : ?>
+                                    <tr role="row" class="odd">
+                                        <td class="sorting_1"><?= $i + 1 ?></td>
+                                        <td><?= $w['nama_cluster'] ?></td>
+                                        <td><?= $w['hp'] ?></td>
+                                        <td><?= $hc[$i] ?? 0 ?></td>
+                                        <td><?= isset($w['hp']) && $w['hp'] ? number_format((($hc[$i] ?? 0) / $w['hp']) * 100, 2) : '0.00' ?>%</td>
+                                    </tr>
+                                <?php endforeach; ?>
+                            <?php endif; ?>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <table id="example1" class="table table-bordered table-striped dataTable nowrap" cellspacing="0" role="grid" aria-describedby="example1_info" style="width:100%">
+                        <thead>
+                            <tr role="row">
+                                <th class="sorting_asc" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Rendering engine: activate to sort column descending" style="width: 10px;">No.</th>
+                                <th class="sorting_asc" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Rendering engine: activate to sort column descending" style="width: 74.3594px;">Nama Cluster</th>
+                                <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending" style="width: 66.1719px;">HP
+                                </th>
+                                <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending" style="width: 80.7812px;">HC
+                                </th>
+                                <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Engine version: activate to sort column ascending" style="width: 55.1094px;">TUR
+                                </th>
                             </tr>
-                            <?php
+                        </thead>
+                        <tbody>
+                            <?php if (is_array($xnxx1) || is_object($xnxx1)) : ?>
+                                <?php $no = 1;
+                                $tabel = [];
+                                foreach ($xnxx1 as $key => $w) : ?>
+                                    <tr role="row" class="odd">
+                                        <td class="sorting_1"><?= $no++ ?></td>
+                                        <td><?= $w['no_io'] ?></td>
+                                        <td><?= $w['hp'] ?></td>
+                                        <td><?= $hc1[$key] ?></td>
+                                        <td><?= number_format(($hc1[$key]  / $w['hp']) * 100, 2); ?>%</td>
+                                    </tr>
+                                <?php
+                                endforeach; ?>
+                            <?php endif; ?>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <table id="example4" class="table table-bordered table-striped dataTable nowrap" cellspacing="0" role="grid" aria-describedby="example1_info" style="width:100%">
+                        <thead>
+                            <tr role="row">
+                                <th class="sorting_asc" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Rendering engine: activate to sort column descending" style="width: 10px;">No.</th>
+                                <th class="sorting_asc" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Rendering engine: activate to sort column descending" style="width: 74.3594px;">OLT</th>
+                                <th class="sorting_asc" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Rendering engine: activate to sort column descending" style="width: 74.3594px;">Kota</th>
+                                <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending" style="width: 66.1719px;">HP
+                                </th>
+                                <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending" style="width: 80.7812px;">HC
+                                </th>
+                                <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Engine version: activate to sort column ascending" style="width: 55.1094px;">TUR
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php if (is_array($xnxx2) || is_object($xnxx2)) : ?>
+                                <?php $no = 1;
+                                $tabel = [];
+                                foreach ($xnxx2 as $key => $w) : ?>
+                                    <tr role="row" class="odd">
+                                        <td class="sorting_1"><?= $no++ ?></td>
+                                        <td><?= $w['olt'] ?></td>
+                                        <td><?= $w['no_io'] ?></td>
+                                        <td><?= $w['hp'] ?></td>
+                                        <td><?= $hc3[$key] ?></td>
+                                        <td><?= number_format(($hc3[$key]  / $w['hp']) * 100, 2); ?>%</td>
+                                    </tr>
+                                <?php
                                 endforeach; ?>
                             <?php endif; ?>
                         </tbody>
@@ -184,27 +239,7 @@
             </div>
         </div>
     </div>
-    <div class="row">
-        <!-- Left col -->
 
-        <section class="col-lg-12 connectedSortable">
-            <!-- Custom tabs (Charts with tabs)-->
-            <div class="nav-tabs-custom">
-                <!-- Tabs within a box -->
-                <div class="tab-pane" id="tab_2">
-                    <div class="chart-container">
-                        <div class="bar-chart-container">
-                            <canvas id="bar-chart" style="width: 3px;"></canvas>
-                        </div>
-                        <div class="bar-chart-container">
-                            <canvas id="bar-chart2" style="width: 3px;"></canvas>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-        <!-- ./col -->
-    </div>
     <!-- /.row -->
 
 

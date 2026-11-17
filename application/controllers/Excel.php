@@ -308,9 +308,10 @@ class Excel extends CI_Controller
             ->setCellValue('O1', 'Instalatir FDT')
             ->setCellValue('P1', 'Tanggal Instalasi')
             ->setCellValue('Q1', 'POP')
-            ->setCellValue('R1', 'OLT')
-            ->setCellValue('S1', 'NO FAT')
-            ->setCellValue('T1', 'Cluster');
+            ->setCellValue('R1', 'Nama')
+            ->setCellValue('S1', 'OLT')
+            ->setCellValue('T1', 'NO FAT')
+            ->setCellValue('V1', 'Cluster');
 
 
         $kolom = 2;
@@ -333,9 +334,10 @@ class Excel extends CI_Controller
                 ->setCellValue('O' . $kolom, $x['nama_instalatir'])
                 ->setCellValue('P' . $kolom, date('j F Y', strtotime($x['tanggal_instalasi'])))
                 ->setCellValue('Q' . $kolom, $x['id_pop'])
-                ->setCellValue('R' . $kolom, $x['olt'])
-                ->setCellValue('S' . $kolom, $x['no'])
-                ->setCellValue('T' . $kolom, $x['nama_cluster']);
+                ->setCellValue('R' . $kolom, $x['nama_pop'])
+                ->setCellValue('S' . $kolom, $x['olt'])
+                ->setCellValue('T' . $kolom, $x['no'])
+                ->setCellValue('V' . $kolom, $x['nama_cluster']);
 
             $kolom++;
             $nomor++;
@@ -428,7 +430,7 @@ class Excel extends CI_Controller
         $writer = new Xlsx($spreadsheet);
 
         header('Content-Type: application/vnd.ms-excel');
-        header('Content-Disposition: attachment;filename="Data Pelanggan.xlsx"');
+        header('Content-Disposition: attachment;filename="Data Pelanggan.csv"');
         header('Cache-Control: max-age=0');
 
         $writer->save('php://output');
