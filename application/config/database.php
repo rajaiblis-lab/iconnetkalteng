@@ -73,16 +73,19 @@ defined('BASEPATH') or exit('No direct script access allowed');
 $active_group = 'default';
 $query_builder = TRUE;
 
+// ---------------------------------------------------------------
+// Setting database bisa diganti lewat environment variable (Docker).
+// Kalau variable TIDAK diisi (misal jalan di XAMPP/Laragon tanpa Docker),
+// otomatis memakai nilai awal (localhost / postgres / admin / iconnet).
+// Backup file asli ada di: _settings_before/
+// ---------------------------------------------------------------
 $db['default'] = array(
 	'dsn'	=> '',
-	// 'hostname' => 'localhost',
-	// 'username' => 'postgres',
-	// 'password' => 'admin',
-	// 'database' => 'x',
-	'hostname' => '8.215.32.71',
-	'username' => 'postgres',
-	'password' => 'icon@2022',
-	'database' => 'iconnet2',
+	'hostname' => getenv('DB_HOST') ?: 'localhost',
+	'username' => getenv('DB_USER') ?: 'postgres',
+	'password' => getenv('DB_PASSWORD') ?: 'admin',
+	'database' => getenv('DB_NAME') ?: 'iconnet',
+	'port'     => getenv('DB_PORT') ?: 5432,
 	'dbdriver' => 'postgre',
 	'dbprefix' => '',
 	'pconnect' => FALSE,
@@ -96,6 +99,5 @@ $db['default'] = array(
 	// 'compress' => FALSE,
 	// 'stricton' => FALSE,
 	// 'failover' => array(),
-	// 'save_queries' => TRUE,
-	// 'port' => 5432
+	// 'save_queries' => TRUE
 );

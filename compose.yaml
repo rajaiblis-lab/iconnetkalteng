@@ -1,20 +1,18 @@
-version: "3.8"
-
 services:
   app:
     build:
       context: .
     ports:
-      - "8080:80" # Map container port 80 to host port 8080
+      - "8080:80" # host 8080 -> container 80
     volumes:
       - .:/var/www/html
     environment:
-      - DB_HOST=8.215.32.71
-      - DB_NAME=iconnet2
-      - DB_USER=postgres
-      - DB_PASSWORD=icon@2022
-    networks:
-      - app-network
-
-networks:
-  app-network:
+      # Postgres yang jalan di komputer Anda (yang dibuka lewat pgAdmin).
+      # Bisa ditimpa lewat file .env tanpa mengubah file ini.
+      - DB_HOST=${DB_HOST:-host.docker.internal}
+      - DB_PORT=${DB_PORT:-5432}
+      - DB_NAME=${DB_NAME:-iconnet}
+      - DB_USER=${DB_USER:-postgres}
+      - DB_PASSWORD=${DB_PASSWORD:-postgres}
+    extra_hosts:
+      - "host.docker.internal:host-gateway" # dibutuhkan di Linux, aman di Windows/Mac
